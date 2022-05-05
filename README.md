@@ -1,4 +1,4 @@
-# Fab Academy Challenge II
+# Fab Academy Challenge III
 
 #### By [Borbala Moravcsik](https://borbalamoravcsik.github.io/mdef-borka/Fabacademy-challenge3.html), [Anna Mestres](https://anna-mestres.github.io/anna.mestres/fab/c3.html), [Angel Cho](https://angel-cho.github.io/mdef22//index.html) & [Roberto Broce](https://roberto-broce.github.io/MDEF-website/index.html)
 
@@ -36,8 +36,160 @@ In order to address the ethical design of our artefact we have identified two ma
 
 * Collective collection and feedback of data.
 
-In the first case, we know that urban designs are studied and tested directly with the city. But interaction in terms of questions and answers is not as widely used. So not only to collect information from each other, but also to make society aware of public opinion, as we see in the second case. In this way, we can design and generate a city for all. 
+In the first case, we know that urban designs are studied and tested directly with the city. But interaction in terms of questions and answers is not as widely used. So not only to collect information from each other, but also to make society aware of public opinion, as we see in the second case. In this way, we can design and generate a city for all.
 
 ### Protocols
 
 ![Protocol Flow](images/interaction_protocol.png)
+
+# Process
+
+## Materials and Digital Fabrication
+
+The materials that we choose to use for create the "" are:
+  * Electronics:
+    *  Raspberry Pi 3
+    *  2 x Resistors 10k
+    *  Phototransistor_Visible_PT15-21C-TR8
+    *  Potentiometer_TT_Model-23_4.5x5.0x3.0mm
+    *  6 Cables (2800mm x cable)
+    *  2 buttons
+    *  Supplier Power 5V
+  * MDF (770 x 800 x 9.3 mm)
+  * Filament
+  * Tape doblesided
+
+
+
+The Digital Fabrication that we use are:
+
+  * Laser cut (Trotec Speedy 400)
+  * Rhino (Rhino 5 is the version to keep the files for make work the laser machine in this case and Rhino 6 to keep the files in CNC)
+  * Illustrator (Inskcape it's open resource it could be used too)
+  * Welders
+  * Phyton
+  * 3D Printing Machine
+
+
+## Flowchart and Coding
+
+![Flowchart](images/flowchart.png)
+
+~~~
+import RPi.GPIO as GPIO
+import time
+import pygame
+from datetime import datetime
+from enum import Enum
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4, GPIO.IN)
+GPIO.setup(17, GPIO.IN)
+GPIO.setup(27, GPIO.IN)
+
+x = 0
+y = 0
+pygame.mixer.init()
+
+def ask_question_one():
+    global x
+    x = x + 1
+    result = round((x / (x+y))*100, 0)
+    play_result_audio(result)
+    print(result,f"% of yes -- X is {x} and Y is {y}")
+    with open('output.txt', 'a') as f:
+        f.write(f"{datetime.now().strftime('%d/%m/%Y - %H:%M:%S')} The user pressed Yes {x} times. Result is {result} \r\n")
+
+
+def ask_question_two():
+    global y
+    y = y + 1
+    result = round((y / (x+y))*100, 0)
+    play_result_audio(result)
+    print(result, f"% of no -- X is {x} and Y is {y}")
+    with open('output.txt', 'a') as f:    
+        f.write(f"{datetime.now().strftime('%d/%m/%Y - %H:%M:%S')} The user pressed No {y} times. Result is {result} \r\n")
+
+def play_result_audio(result):
+    if result < 25:
+        #playsound('Bin02.mp3')
+        pygame.mixer.music.load("Bin02.mp3")
+        pygame.mixer.music.play(loops=1)
+        while pygame.mixer.music.get_busy() == True:
+            continue
+        print(f"play sound < 25 {result}")
+    elif result < 50:
+        #playsound('Bin03.mp3')
+        pygame.mixer.music.load("Bin03.mp3")
+        pygame.mixer.music.play(loops=1)
+        while pygame.mixer.music.get_busy() == True:
+            continue
+        print(f"play sound < 50 {result}")
+    elif result < 75:
+        #playsound('Bin04.mp3')
+        pygame.mixer.music.load("Bin04.mp3")
+        pygame.mixer.music.play(loops=1)
+        while pygame.mixer.music.get_busy() == True:
+            continue
+        print(f"play sound < 75 {result}")
+    else:
+        #playsound('Bin05.mp3')
+        pygame.mixer.music.load("Bin05.mp3")
+        pygame.mixer.music.play(loops=1)
+        while pygame.mixer.music.get_busy() == True:
+            continue
+        print(f"play sound < 100 {result}")
+
+with open('output.txt', 'a') as f:
+    f.write(f"Beginning of reading {datetime.now().strftime('%d/%m/%Y - %H:%M:%S')} \r\n")
+
+is_answered = False
+is_played_intro = False
+
+while True:
+    while GPIO.input(4) == 1:
+        print("LID IS CLOSED")
+        continue
+
+    print("LID IS OPEN")
+#     if GPIO.input(4) == 0:
+#         print("its open")
+
+    # run audio here
+    if is_played_intro is False:
+        is_played_intro = True
+        pygame.mixer.music.load("Bin01.mp3")
+        pygame.mixer.music.play(loops=1)
+        while pygame.mixer.music.get_busy() == True:
+            continue
+
+    with open('output.txt', 'a') as f:
+        f.write(f"{datetime.now().strftime('%d/%m/%Y - %H:%M:%S')} playing question \r\n ")
+#     now = time.time()
+#     while GPIO.input(17) != 1 or GPIO.input(27) != 1:
+#         if time.time() - 200000 < now:
+#             continue
+#         else:
+#             break
+
+    if GPIO.input(17) == 0 and GPIO.input(4) == 0:
+        print("Yes")
+        ask_question_one()
+        time.sleep(1)
+        is_answered = True
+
+    elif GPIO.input(27) == 0 and GPIO.input(4) == 0:
+        print("No")  
+        ask_question_two()
+        time.sleep(1)
+        is_answered = True
+
+
+    while GPIO.input(4) == 0 and is_answered is True:
+        is_played_intro = False
+        print("LID IS OPEN and question answered")
+        continue
+
+    is_answered = False
+    # print(f"X is {x} and Y is {y}")
+~~~
