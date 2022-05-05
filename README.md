@@ -44,6 +44,10 @@ In the first case, we know that urban designs are studied and tested directly wi
 
 # Process
 
+We started by making a list of parts we needed to make in order to identify tasks and schedules. For the 3D design, we knew we needed a case to hold the electronics and speaker together (lives inside the garbage can) and either a button
+
+In terms of functionality, we discussed what would be the best way for people to castntheir vote. Since the garbage bin is typically seen as an unsanitary place, we knew people would not want to touch the bin, so we decided to eliminate the option of capacitive sensors. We also explored using infrared sensors that would be attached to the outside of the bin and detect the movement or position of the person., but the sensitivity would be
+
 ## Materials and Digital Fabrication
 
 The materials that we choose to use for create the "" are:
@@ -71,9 +75,17 @@ The Digital Fabrication that we use are:
   * 3D Printing Machine
 
 
-## Flowchart and Coding
+## Flowchart
+
+Anna developed the flow chart in two parts. The first part is straight forward as there is one input and output. The part 2 got more complex because it had to consider four outputs (audio) based on an average of collected data (yes or no inputs). We later corrected this flow char to...
 
 ![Flowchart](images/flowchart.png)
+
+## Electronics
+
+In mapping out the electronic components, we had 2 options: the first was to use ESP boards that are connected with wires to the foot pedal
+
+## Coding
 
 ~~~
 import RPi.GPIO as GPIO
