@@ -50,6 +50,8 @@ We knew we wanted to work with an object or architecture that exists in the publ
 
 After brainstorming about the main concept, we decided to create a voting device that would collect (and reflect) the opinions of the community, basically anyone who will come to dispose of their trash. We chose a question that is general enough and would reflect the community's feelings, and at the same time provide the feedback back to the community. 
 
+![Image](images/.png)
+
 In terms of functionality, we discussed what would be the best way for people to cast their votes. Since the garbage bin is typically seen as an unsanitary place, we knew people would not want to touch the bin, so we decided to eliminate the option of capacitive sensors. We explored using infrared sensors that would be attached to the outside of the bin and detect the movement or position of the person., but after the first review with the tutors, we decided to use an interaction which was more intuitive to actually using the garbage bin and and not another separate action.
 
 From this insight, we decided that the act of trowing away the garbage (pushing down on the foot pedal) would trigger the questions, which would be audio. We chose the output to be audio because we didn't want to attach a screen or led sensors to the garbage bin and wanted the interaface to be more "hidden" and less intrusive. As for the voting mechanism, we also decided to put this on the pedal of the bin. But instead of using IR sensors, we chose to go with buttons, because it would provide a more accurate result. Since the pedal is a cylindrical shape with two sides, we decided to fix a button on each side, assigning the 1 and 0 (yes and no). Again, to simplify, we chose the feedback output to stay with audio.
@@ -85,15 +87,17 @@ The Digital Fabrication that we use are:
 
 ## Flowchart
 
-Anna developed the flow chart in two parts. The first part is straight forward as there is one input and output. The part 2 got more complex because it had to consider four outputs (audio) based on an average of collected data (yes or no inputs). We later corrected this flow char to...
+Anna developed the flow chart in two parts. In the first part, we are asking  got more complex because it had to consider four outputs (audio) based on an average of collected data (yes or no inputs). We later corrected this flow char to...
 
 ![Flowchart](images/flowchart.png)
 
 ## Electronics
 
-In mapping out the electronic components, we had 2 options: the first was to use ESP boards that are connected with wires to the foot pedal
+We mapped out a few different scenarios with the electronics. In the first scenario we would need an ESP board, a midi board (for the sound), and speakers. But if we used a Raspberry Pi instead, we could eliminate the need for the midi board, which we didn't have access to. ...
 
 ## Coding
+
+We received a lot of help from Pietro in coding with Python. (Anna reflections?) There were mant iterations and tests, and in order to keep track of what we have tried, we kept all of the past code as comments instead of getting rid of them.  ...
 
 ~~~
 import RPi.GPIO as GPIO
@@ -213,3 +217,13 @@ while True:
     is_answered = False
     # print(f"X is {x} and Y is {y}")
 ~~~
+
+## Structural Design
+
+## Content
+
+## Prototyping
+
+## Testing
+
+## Key Learnings
