@@ -223,6 +223,13 @@ while True:
 
 ## Structural Design
 
+Box to encase the electronic parts that lives inside the garbage bin
+![Box1](images/box1.jpg)
+![Box2](images/box2.jpg)
+
+Foot pedal attachments 
+![Pedal1](images/pedal1.jpg)
+![Pedal2](images/pedal2.jpg)
 
 ## Content
 
@@ -231,5 +238,7 @@ while True:
 ![Structural Design](images/bin.jpeg)
 
 ## Testing
+
+![Mockup](images/Mockup1.jpg)
 
 ## Key Learnings
