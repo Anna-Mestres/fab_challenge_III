@@ -115,6 +115,17 @@ x = 0
 y = 0
 pygame.mixer.init()
 
+# Possible states:
+# lid_close
+# playing_question
+# waiting_answer
+# playing_result
+# idle
+
+state = "lid_closed"
+idle_timer = 0
+waiting_answer_timer = 0
+
 def ask_question_one():
     global x
     x = x + 1
@@ -167,64 +178,57 @@ def play_result_audio(result):
 with open('output.txt', 'a') as f:
     f.write(f"Beginning of reading {datetime.now().strftime('%d/%m/%Y - %H:%M:%S')} \r\n")
 
-is_answered = False
-is_played_intro = False
-
 while True:
-    while GPIO.input(4) == 1:
-        print("LID IS CLOSED")
-        continue
+    if state == "lid_closed":
+        print("[STATE] Lid is closed")
+        if GPIO.input(4) == 0:
+            state = "playing_question"
+        time.sleep(0.5)
 
-    print("LID IS OPEN")
-#     if GPIO.input(4) == 0:
-#         print("its open")
-
-    # run audio here
-    if is_played_intro is False:
-        is_played_intro = True
+    elif state == "playing_question":
+        print("[STATE] Playing question")
         pygame.mixer.music.load("Bin01.mp3")
         pygame.mixer.music.play(loops=1)
         while pygame.mixer.music.get_busy() == True:
             continue
+        waiting_answer_timer = time.time()
+        state = "waiting_answer"
 
-    with open('output.txt', 'a') as f:
-        f.write(f"{datetime.now().strftime('%d/%m/%Y - %H:%M:%S')} playing question \r\n ")
-#     now = time.time()
-#     while GPIO.input(17) != 1 or GPIO.input(27) != 1:
-#         if time.time() - 200000 < now:
-#             continue
-#         else:
-#             break
+    elif state == "waiting_answer":
+        print("[STATE] Waiting for an waiting_answer")
+        if GPIO.input(17) == 0:
+            print("Yes")
+            ask_question_one()
+            idle_timer = time.time()
+            state = "idle"
 
-    if GPIO.input(17) == 0 and GPIO.input(4) == 0:
-        print("Yes")
-        ask_question_one()
-        time.sleep(1)
-        is_answered = True
+        elif GPIO.input(27) == 0:
+            print("No")  
+            ask_question_two()
+            idle_timer = time.time()
+            state = "idle"
+        if time.time() > waiting_answer_timer + 20:
+            state = "idle"
 
-    elif GPIO.input(27) == 0 and GPIO.input(4) == 0:
-        print("No")  
-        ask_question_two()
-        time.sleep(1)
-        is_answered = True
+    elif state == "idle":
+        print("[STATE] Idle")
+        if time.time() > idle_timer + 20:
+            if GPIO.input(4) == 0:
+                idle_timer = time.time()
 
-
-    while GPIO.input(4) == 0 and is_answered is True:
-        is_played_intro = False
-        print("LID IS OPEN and question answered")
-        continue
-
-    is_answered = False
-    # print(f"X is {x} and Y is {y}")
+    if GPIO.input(4) == 1 and state != "waiting_answer" and state != "playing_result":
+        print("[STATE] Lid was closed")
+        state = "lid_closed"
 ~~~
 
 ## Structural Design
 
-![Structural Design](images/bin.jpeg)
 
 ## Content
 
 ## Prototyping
+
+![Structural Design](images/bin.jpeg)
 
 ## Testing
 
