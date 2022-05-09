@@ -50,7 +50,7 @@ We knew we wanted to work with an object or architecture that exists in the publ
 
 After brainstorming about the main concept, we decided to create a voting device that would collect (and reflect) the opinions of the community, basically anyone who will come to dispose of their trash. We chose a question that is general enough and would reflect the community's feelings, and at the same time provide the feedback back to the community.
 
-![Image](images/.png)
+![Image](images/brainstorm.jpg)
 
 In terms of functionality, we discussed what would be the best way for people to cast their votes. Since the garbage bin is typically seen as an unsanitary place, we knew people would not want to touch the bin, so we decided to eliminate the option of capacitive sensors. We explored using infrared sensors that would be attached to the outside of the bin and detect the movement or position of the person., but after the first review with the tutors, we decided to use an interaction which was more intuitive to actually using the garbage bin and and not another separate action.
 
@@ -91,13 +91,11 @@ Anna developed the flow chart in two parts. In the first part, we are asking  go
 
 ![Flowchart](images/flowchart.png)
 
-## Electronics
+## Electronics & Coding
 
-We mapped out a few different scenarios with the electronics. In the first scenario we would need an ESP board, a midi board (for the sound), and speakers. But if we used a Raspberry Pi instead, we could eliminate the need for the midi board, which we didn't have access to. ...
+We mapped out a few different scenarios with the electronics. In the first scenario we would need an ESP board, a midi board (for the sound), and speakers. In the second scenario, we would use a Raspberry Pi, which had a built in audio jack, and would eliminate the need for the midi board. We checked the electronics available to us in the Fab Lab and couldn't find a midi board so we decided to use the Raspberry Pi.
 
-## Coding
-
-We received a lot of help from Pietro in coding with Python. (Anna reflections?) There were mant iterations and tests, and in order to keep track of what we have tried, we kept all of the past code as comments instead of getting rid of them.  ...
+Since it was most of our first times using Raspberry Pi and coding with Python, we received a lot of help from Pietro. It took us a full day to iterate, write, and test the code. And to keep track of our progress, we kept the code that didn't work as comments so we would know what has already been done. Here is the code below:
 
 ~~~
 import RPi.GPIO as GPIO
@@ -223,15 +221,27 @@ while True:
 
 ## Structural Design
 
-Box to encase the electronic parts that lives inside the garbage bin
-![Box1](images/box1.jpg)
-![Box2](images/box2.jpg)
+In terms of 3D components, we had to design a box to encase the electronic parts and the case which would hold the buttons (interactive component). The box would have to live inside the garbage can near the disposal lid, and also be oriented in a way that would detect some light when the lid opened. We went to the garbage can and took measurements for both the box and the foot pedal. The foot pedal would be the more complicated component, so we started designing it first. 
 
-Foot pedal attachments 
+We sketched a design for the button holder which would encase the buttons and attach to the pedal on each sides. Becuase the pedal of the garbage bin was made from a textured metal, which became more textured through use, it was hard to measure a precise diameter around it. We decided to use a flexible filament to 3D print the attachment to give it some flexibility. Borka workd on a structure which would also hold the opposite side of the button which would allow the button to screw in to the same piece. We printed two, one for each side, with different materials and widths in order to test out the best option.
+
 ![Pedal1](images/pedal1.jpg)
 ![Pedal2](images/pedal2.jpg)
 
+Orignianlly we wanted to print the box from acrylic, so we can see the electronic components and the light sensor would always be exposed to the light in the garbage bin. But due to a lack of materials and time, we decided to laser cut the box and create holes for wires to pass and the light sensor to stick out. 
+
+![Box1](images/box1.jpg)
+![Box2](images/box2.jpg)
+
+
 ## Content
+
+We had fun with the idea with developing the character of the garbage bin that would talk to you. We thought of a friendly neighborhood character, who had an approachable voice and way of speaking. We decided the questions should also be presented in a conversational way, and not as survey questions. Roberto was chosen to record the voice because he spoke Spanish fluently and had a great voice. 
+
+We started with a friendly introduction of the garbage bins, giving context that they are new to the neighborhood. Then moved on to let the garbage user know that they were intentionally designed to improve the design and functionality. Finally, we asked the user if they were able to see an improvement in their lives with this update. The citizen was prompted to tap the right side of the pedal if their answer was yes, and the left side if their answer was no. We also recorded the results of the average of all the responses, which allowed the citizen to know how most of the people who voted felt about this question.
+
+![Voice](images/RobertoVoice.jpg)
+
 
 ## Prototyping
 
