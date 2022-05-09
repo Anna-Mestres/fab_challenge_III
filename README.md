@@ -232,6 +232,7 @@ Orignianlly we wanted to print the box from acrylic, so we can see the electroni
 
 ![Box1](images/box1.jpg)
 ![Box2](images/box2.jpg)
+![Mockup](images/Mockup1.jpg)
 
 
 ## Content
@@ -249,7 +250,6 @@ We were able to finalize all the components by Friday morning but ran into some 
 
 We plan to resolve this issue by next week and attach our device onto a garbage can so we can test it.
 
-![Mockup](images/Mockup1.jpg)
 ![Structural Design](images/bin.jpeg)
 
 
