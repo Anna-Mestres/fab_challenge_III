@@ -243,12 +243,18 @@ We started with a friendly introduction of the garbage bins, giving context that
 ![Voice](images/RobertoVoice.jpg)
 
 
-## Prototyping
-
-![Structural Design](images/bin.jpeg)
-
 ## Testing
 
+We were able to finalize all the components by Friday morning but ran into some challenges with activating the audio without the Raspberry Pi interface on the monitor. We tested the sensors, audio, and buttons with the monitor which worked perfectly fine. But as soon as we unplugged the monitor, we couldn't activate the sensor.
+
+We plan to resolve this issue by next week and attach our device onto a garbage can so we can test it.
+
 ![Mockup](images/Mockup1.jpg)
+![Structural Design](images/bin.jpeg)
+
 
 ## Key Learnings
+-
+-
+-
+-
