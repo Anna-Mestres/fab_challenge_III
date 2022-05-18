@@ -254,7 +254,6 @@ We plan to resolve this issue by next week and attach our device onto a garbage 
 
 
 ## Key Learnings
--
--
--
--
+- Always test materials and positioning, when hacking an already existing design system 
+- Many new learnings on how to design products with electronics, such as the positioning of different wires and batteries, next time design parts which holds them separately and which are designed for specific sizes 
+- And studied about the amount of support and infill needed with different flexible materials
